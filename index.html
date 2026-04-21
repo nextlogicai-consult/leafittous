@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaf It To Us – Residential Lawn Care</title>
+  <meta name="description" content="Leaf It To Us – Professional residential lawn care in your neighbourhood. Mowing, edging, fertilizing, and more. Get a free quote today!" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            leaf: {
+              50:  '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            warm: {
+              50:  '#fdf8f0',
+              100: '#fef3c7',
+              200: '#fde68a',
+            }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+    /* Hero texture overlay */
+    .hero-bg {
+      background: linear-gradient(155deg, #f0fdf4 0%, #fef9ee 45%, #dcfce7 100%);
+      position: relative;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 80%, rgba(34,197,94,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(254,243,199,0.5) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Grass divider */
+    .grass-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .grass-divider svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* Leaf badge */
+    .leaf-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.25);
+      color: #16a34a;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* Section title underline */
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #22c55e, #86efac);
+      border-radius: 2px;
+    }
+    .section-title.centered::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Service cards */
+    .service-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      border: 1px solid rgba(34,197,94,0.1);
+      transition: all 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.25);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #16a34a;
+      margin-bottom: 1rem;
+    }
+
+    /* Pricing card */
+    .pricing-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 2rem;
+      border: 2px solid #e5e7eb;
+      transition: all 0.3s ease;
+    }
+    .pricing-card:hover {
+      border-color: #22c55e;
+      box-shadow: 0 12px 40px rgba(34,197,94,0.1);
+    }
+    .pricing-card.featured {
+      background: linear-gradient(160deg, #f0fdf4, #fff);
+      border-color: #22c55e;
+      box-shadow: 0 8px 32px rgba(34,197,94,0.15);
+    }
+
+    /* Stat card */
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    /* About photo placeholder */
+    .photo-frame {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, #dcfce7, #bbf7d0);
+    }
+    .photo-frame .photo-accent {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #fde68a, #fef3c7);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    /* Form input */
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #374151;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #22c55e;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.4rem;
+    }
+
+    /* CTA button */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(34,197,94,0.4);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #16a34a;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      border: 2px solid #22c55e;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+    .btn-outline:hover {
+      background: #22c55e;
+      color: #fff;
+    }
+
+    /* Testimonial card */
+    .testimonial-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+      border: 1px solid rgba(34,197,94,0.08);
+    }
+
+    /* Footer */
+    footer {
+      background: #1a2e1a;
+      color: #d1fae5;
+    }
+    footer a:hover { color: #4ade80; }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      box-shadow: 0 4px 20px rgba(34,197,94,0.4);
+      z-index: 999;
+    }
+
+    /* Success message */
+    .success-msg {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #15803d;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+    }
+
+    /* Warm section bg */
+    .bg-warm { background: linear-gradient(160deg, #fdf8f0 0%, #fefce8 100%); }
+    .bg-leaf-soft { background: linear-gradient(160deg, #f0fdf4 0%, #fdf8f0 100%); }
+  </style>
+</head>
+
+<body class="bg-white text-gray-800 overflow-x-hidden">
+
+  <!-- ═══════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-gradient-to-br from-leaf-400 to-leaf-600 rounded-xl flex items-center justify-center shadow-md">
+          <i class="fas fa-leaf text-white text-sm"></i>
+        </div>
+        <div>
+          <span class="nav-scrolled-text font-display font-bold text-lg text-white leading-none block">Leaf It To Us</span>
+          <span class="nav-scrolled-sub text-xs text-green-200 leading-none block">Lawn Care</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="#services" class="nav-link text-white text-sm font-medium px-4 py-2 rounded-full transition-all duration-200 hover:bg-white/10">Services</a>
+        <a href="#about" class="nav-link text-white text-sm font-medium px-4 py-2 rounded-full transition-all duration-200 hover:bg-white/10">About</a>
+        <a href="#pricing" class="nav-link text-white text-sm font-medium px-4 py-2 rounded-full transition-all duration-200 hover:bg-white/10">Pricing</a>
+        <a href="#contact" class="nav-link text-white text-sm font-medium px-4 py-2 rounded-full transition-all duration-200 hover:bg-white/10">Contact</a>
+        <a href="#quote" class="btn-primary ml-3 text-sm py-2 px-5">Get a Quote</a>
+      </div>
+
+      <!-- Mobile Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl border-t border-green-100">
+      <div class="px-6 py-4 flex flex-col gap-1">
+        <a href="#services" class="mobile-nav-link block text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-leaf-50">Services</a>
+        <a href="#about" class="mobile-nav-link block text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-leaf-50">About</a>
+        <a href="#pricing" class="mobile-nav-link block text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-leaf-50">Pricing</a>
+        <a href="#contact" class="mobile-nav-link block text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-leaf-50">Contact</a>
+        <a href="#quote" class="mobile-nav-link btn-primary mt-2 justify-center">Get a Free Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ═══════════════════════════════════ -->
+  <header id="hero" class="hero-bg min-h-screen flex items-center relative pt-20">
+
+    <!-- Floating leaves -->
+    <span class="floating-leaf text-5xl" style="top:12%;left:5%;animation-delay:0s;">🌿</span>
+    <span class="floating-leaf text-3xl" style="top:25%;right:8%;animation-delay:2s;">🍃</span>
+    <span class="floating-leaf text-2xl" style="top:65%;left:12%;animation-delay:4s;">🌱</span>
+    <span class="floating-leaf text-4xl" style="top:50%;right:4%;animation-delay:1s;">🍀</span>
+    <span class="floating-leaf text-2xl" style="top:80%;right:20%;animation-delay:3s;">🌿</span>
+
+    <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
+
+      <!-- Left -->
+      <div>
+        <div class="leaf-badge mb-6 fade-up">
+          <i class="fas fa-star text-xs"></i> Trusted by 500+ happy neighbours
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6 fade-up" style="animation-delay:0.1s">
+          Your lawn,<br/>
+          <em class="text-leaf-600 not-italic">beautifully</em><br/>
+          taken care of.
+        </h1>
+        <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-md fade-up" style="animation-delay:0.2s">
+          We're your friendly neighbourhood lawn care team. From lush mowing to crisp edging — we make your yard the one everyone notices.
+        </p>
+        <div class="flex flex-wrap gap-4 fade-up" style="animation-delay:0.3s">
+          <a href="#quote" class="btn-primary text-base">
+            <i class="fas fa-leaf"></i> Get My Free Quote
+          </a>
+          <a href="#services" class="btn-outline text-base">
+            See Our Services
+          </a>
+        </div>
+
+        <!-- Trust row -->
+        <div class="flex flex-wrap gap-6 mt-10 fade-up" style="animation-delay:0.4s">
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <i class="fas fa-check-circle text-leaf-500"></i> No contracts
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <i class="fas fa-check-circle text-leaf-500"></i> Same-day quotes
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <i class="fas fa-check-circle text-leaf-500"></i> Satisfaction guaranteed
+          </div>
+        </div>
+      </div>
+
+      <!-- Right – stats card -->
+      <div class="flex justify-center fade-up" style="animation-delay:0.2s">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full border border-leaf-100">
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="stat-card bg-leaf-soft rounded-2xl">
+              <div class="text-3xl font-bold text-leaf-600 font-display">
+                <span class="counter" data-target="500">0</span>+
+              </div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">Happy Clients</div>
+            </div>
+            <div class="stat-card bg-warm rounded-2xl">
+              <div class="text-3xl font-bold text-amber-600 font-display">
+                <span class="counter" data-target="8">0</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">Years Experience</div>
+            </div>
+            <div class="stat-card bg-warm rounded-2xl">
+              <div class="text-3xl font-bold text-amber-600 font-display">
+                <span class="counter" data-target="98">0</span>%
+              </div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">Satisfaction Rate</div>
+            </div>
+            <div class="stat-card bg-leaf-soft rounded-2xl">
+              <div class="text-3xl font-bold text-leaf-600 font-display">
+                <span class="counter" data-target="12">0</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-1 font-medium">Neighbourhoods</div>
+            </div>
+          </div>
+          <div class="bg-leaf-50 rounded-2xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-leaf-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-phone text-white text-sm"></i>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">Call us today</div>
+              <div class="font-bold text-gray-800">(555) 867-5309</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grass SVG divider -->
+    <div class="grass-divider absolute bottom-0 left-0 right-0">
+      <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,40 C120,0 240,80 360,40 C480,0 600,80 720,40 C840,0 960,80 1080,40 C1200,0 1320,80 1440,40 L1440,80 L0,80 Z" fill="white"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       SERVICES
+  ═══════════════════════════════════ -->
+  <section id="services" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+        <div class="leaf-badge mb-4 fade-up">What We Do</div>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 section-title centered fade-up" style="animation-delay:0.1s">
+          Everything your lawn needs
+        </h2>
+        <p class="text-gray-500 max-w-xl mx-auto mt-6 fade-up" style="animation-delay:0.2s">
+          From weekly mowing to seasonal cleanups — we've got every inch of your yard covered, so you can enjoy your weekends guilt-free.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="service-card fade-up" style="animation-delay:0.1s">
+          <div class="service-icon"><i class="fas fa-cut"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Lawn Mowing</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Precise, consistent cuts to keep your grass at the ideal height all season long. Weekly or bi-weekly scheduling available.</p>
+        </div>
+
+        <div class="service-card fade-up" style="animation-delay:0.15s">
+          <div class="service-icon"><i class="fas fa-ruler-combined"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Edging & Trimming</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Sharp, clean edges along driveways, walkways, and garden beds for that polished, well-kept look.</p>
+        </div>
+
+        <div class="service-card fade-up" style="animation-delay:0.2s">
+          <div class="service-icon"><i class="fas fa-seedling"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Fertilizing</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Seasonal fertilizer treatments that feed your lawn the nutrients it needs for thick, green, healthy growth.</p>
+        </div>
+
+        <div class="service-card fade-up" style="animation-delay:0.1s">
+          <div class="service-icon"><i class="fas fa-wind"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Aeration</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Core aeration relieves soil compaction and allows water, air, and nutrients to reach the roots where they're needed most.</p>
+        </div>
+
+        <div class="service-card fade-up" style="animation-delay:0.15s">
+          <div class="service-icon"><i class="fas fa-leaf"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Leaf Removal</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Fast, thorough fall cleanups to clear leaves and debris before winter sets in. Your lawn will thank you come spring.</p>
+        </div>
+
+        <div class="service-card fade-up" style="animation-delay:0.2s">
+          <div class="service-icon"><i class="fas fa-tint"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Weed Control</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Pre- and post-emergent weed treatments to keep dandelions, crabgrass, and other invaders out of your yard for good.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════ -->
+  <section id="about" class="py-24 bg-warm">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+
+      <!-- Photo side -->
+      <div class="relative fade-up">
+        <div class="photo-frame">
+          <!-- Green illustration placeholder -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+            <div class="text-8xl mb-4">🌿</div>
+            <p class="text-leaf-700 font-medium text-sm opacity-60">Your photo here</p>
+          </div>
+          <div class="photo-accent"></div>
+        </div>
+        <!-- Floating badge -->
+        <div class="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl px-5 py-3 border border-leaf-100 flex items-center gap-3 z-10">
+          <div class="text-2xl">⭐</div>
+          <div>
+            <div class="font-bold text-gray-900 text-sm">5.0 Rating</div>
+            <div class="text-xs text-gray-500">Over 200 reviews</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text side -->
+      <div class="fade-up" style="animation-delay:0.15s">
+        <div class="leaf-badge mb-4">Our Story</div>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 section-title">
+          A local team who<br/><em class="text-leaf-600 not-italic">actually cares.</em>
+        </h2>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          Leaf It To Us was started right here in the neighbourhood with one simple idea: treat every lawn like it's our own. No rushing, no cutting corners — just honest, reliable work done right.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-8">
+          We're fully insured, locally operated, and committed to showing up on time, every time. When you choose us, you're supporting a small local business — not a big franchise.
+        </p>
+
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-center gap-3 text-gray-700">
+            <div class="w-6 h-6 bg-leaf-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-check text-leaf-600 text-xs"></i>
+            </div>
+            Fully licensed & insured
+          </li>
+          <li class="flex items-center gap-3 text-gray-700">
+            <div class="w-6 h-6 bg-leaf-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-check text-leaf-600 text-xs"></i>
+            </div>
+            Locally owned & operated
+          </li>
+          <li class="flex items-center gap-3 text-gray-700">
+            <div class="w-6 h-6 bg-leaf-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-check text-leaf-600 text-xs"></i>
+            </div>
+            No lock-in contracts
+          </li>
+          <li class="flex items-center gap-3 text-gray-700">
+            <div class="w-6 h-6 bg-leaf-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-check text-leaf-600 text-xs"></i>
+            </div>
+            Eco-friendly practices
+          </li>
+        </ul>
+
+        <a href="#quote" class="btn-primary">Get Your Free Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       PRICING
+  ═══════════════════════════════════ -->
+  <section id="pricing" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+        <div class="leaf-badge mb-4 fade-up">Simple Pricing</div>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 section-title centered fade-up" style="animation-delay:0.1s">
+          No surprises, ever.
+        </h2>
+        <p class="text-gray-500 max-w-lg mx-auto mt-6 fade-up" style="animation-delay:0.2s">
+          Flat, transparent pricing for every yard size. No hidden fees, no contracts — just great lawn care at a fair price.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+
+        <!-- Basic -->
+        <div class="pricing-card fade-up" style="animation-delay:0.1s">
+          <div class="mb-4">
+            <div class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Basic</div>
+            <div class="text-4xl font-bold text-gray-900 font-display">$39<span class="text-lg font-normal text-gray-400">/visit</span></div>
+            <div class="text-xs text-gray-400 mt-1">Small yards up to 3,000 sq ft</div>
+          </div>
+          <hr class="border-gray-100 my-4"/>
+          <ul class="space-y-2 text-sm text-gray-600 mb-6">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Lawn mowing</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Edging & trimming</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Clipping cleanup</li>
+            <li class="flex items-center gap-2 opacity-40"><i class="fas fa-times text-gray-400 w-4"></i> Fertilizing</li>
+            <li class="flex items-center gap-2 opacity-40"><i class="fas fa-times text-gray-400 w-4"></i> Weed control</li>
+          </ul>
+          <a href="#quote" class="btn-outline w-full justify-center text-sm py-2.5">Get Started</a>
+        </div>
+
+        <!-- Standard (featured) -->
+        <div class="pricing-card featured border-leaf-500 fade-up relative" style="animation-delay:0.15s">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="bg-gradient-to-r from-leaf-500 to-leaf-400 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Most Popular</span>
+          </div>
+          <div class="mb-4 mt-3">
+            <div class="text-sm font-semibold text-leaf-600 uppercase tracking-wider mb-1">Standard</div>
+            <div class="text-4xl font-bold text-gray-900 font-display">$59<span class="text-lg font-normal text-gray-400">/visit</span></div>
+            <div class="text-xs text-gray-400 mt-1">Medium yards 3,000–6,000 sq ft</div>
+          </div>
+          <hr class="border-leaf-100 my-4"/>
+          <ul class="space-y-2 text-sm text-gray-600 mb-6">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Lawn mowing</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Edging & trimming</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Clipping cleanup</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Fertilizing (seasonal)</li>
+            <li class="flex items-center gap-2 opacity-40"><i class="fas fa-times text-gray-400 w-4"></i> Weed control</li>
+          </ul>
+          <a href="#quote" class="btn-primary w-full justify-center text-sm py-2.5">Get Started</a>
+        </div>
+
+        <!-- Premium -->
+        <div class="pricing-card fade-up" style="animation-delay:0.2s">
+          <div class="mb-4">
+            <div class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Premium</div>
+            <div class="text-4xl font-bold text-gray-900 font-display">$89<span class="text-lg font-normal text-gray-400">/visit</span></div>
+            <div class="text-xs text-gray-400 mt-1">Large yards 6,000+ sq ft</div>
+          </div>
+          <hr class="border-gray-100 my-4"/>
+          <ul class="space-y-2 text-sm text-gray-600 mb-6">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Lawn mowing</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Edging & trimming</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Clipping cleanup</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Fertilizing (seasonal)</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-leaf-500 w-4"></i> Weed control</li>
+          </ul>
+          <a href="#quote" class="btn-outline w-full justify-center text-sm py-2.5">Get Started</a>
+        </div>
+
+      </div>
+
+      <p class="text-center text-sm text-gray-400 mt-8 fade-up">All plans include free estimates. Prices may vary by location. <a href="#quote" class="text-leaf-600 underline">Contact us</a> for a custom quote.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       QUOTE FORM
+  ═══════════════════════════════════ -->
+  <section id="quote" class="py-24 bg-leaf-soft">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <div class="text-center mb-12">
+        <div class="leaf-badge mb-4 fade-up">Free Quote</div>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 section-title centered fade-up" style="animation-delay:0.1s">
+          Let's get your yard<br/><em class="text-leaf-600 not-italic">looking amazing.</em>
+        </h2>
+        <p class="text-gray-500 mt-6 fade-up" style="animation-delay:0.2s">
+          Fill out the form and we'll get back to you with a no-obligation quote within one business day.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-leaf-100 fade-up" style="animation-delay:0.2s">
+        <form id="quote-form" class="space-y-5" novalidate>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="form-label" for="q-name">Full Name *</label>
+              <input class="form-input" id="q-name" name="name" type="text" placeholder="Jane Smith" required />
+            </div>
+            <div>
+              <label class="form-label" for="q-phone">Phone Number *</label>
+              <input class="form-input" id="q-phone" name="phone" type="tel" placeholder="(555) 000-0000" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" for="q-email">Email Address *</label>
+            <input class="form-input" id="q-email" name="email" type="email" placeholder="jane@email.com" required />
+          </div>
+
+          <div>
+            <label class="form-label" for="q-address">Property Address *</label>
+            <input class="form-input" id="q-address" name="address" type="text" placeholder="123 Maple Street" required />
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="form-label" for="q-size">Approximate Yard Size</label>
+              <select class="form-input" id="q-size" name="yard_size">
+                <option value="">Select size...</option>
+                <option value="small">Small (under 3,000 sq ft)</option>
+                <option value="medium">Medium (3,000–6,000 sq ft)</option>
+                <option value="large">Large (6,000+ sq ft)</option>
+                <option value="unsure">Not sure</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="q-service">Service Interested In</label>
+              <select class="form-input" id="q-service" name="service">
+                <option value="">Select service...</option>
+                <option value="mowing">Lawn Mowing</option>
+                <option value="full">Full Lawn Care</option>
+                <option value="fertilizing">Fertilizing</option>
+                <option value="aeration">Aeration</option>
+                <option value="leaf-removal">Leaf Removal</option>
+                <option value="weed">Weed Control</option>
+                <option value="other">Other / Not Sure</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" for="q-message">Anything else we should know?</label>
+            <textarea class="form-input" id="q-message" name="message" rows="3" placeholder="E.g. I have a dog, back yard only, specific schedule..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary w-full justify-center text-base py-3">
+            <i class="fas fa-paper-plane"></i> Send My Quote Request
+          </button>
+
+          <div id="quote-success" class="success-msg hidden"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════ -->
+  <section id="contact" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
+
+      <!-- Info side -->
+      <div class="fade-up">
+        <div class="leaf-badge mb-4">Get In Touch</div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-6 section-title">
+          We'd love to<br/><em class="text-leaf-600 not-italic">hear from you.</em>
+        </h2>
+        <p class="text-gray-500 leading-relaxed mb-8">
+          Have a question? Want to chat before booking? Reach out — we're friendly, we're local, and we actually answer our phones.
+        </p>
+
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 bg-leaf-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-leaf-100">
+              <i class="fas fa-phone text-leaf-600"></i>
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Phone</div>
+              <a href="tel:5558675309" class="text-leaf-600 hover:underline">(555) 867-5309</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 bg-leaf-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-leaf-100">
+              <i class="fas fa-envelope text-leaf-600"></i>
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Email</div>
+              <a href="mailto:hello@leafittous.com" class="text-leaf-600 hover:underline">hello@leafittous.com</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 bg-leaf-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-leaf-100">
+              <i class="fas fa-clock text-leaf-600"></i>
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Hours</div>
+              <div class="text-gray-500 text-sm">Mon–Fri: 7am–6pm</div>
+              <div class="text-gray-500 text-sm">Sat: 8am–4pm</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 bg-leaf-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-leaf-100">
+              <i class="fas fa-map-marker-alt text-leaf-600"></i>
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Service Area</div>
+              <div class="text-gray-500 text-sm">Serving the greater metro area<br/>and surrounding neighbourhoods</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 fade-up" style="animation-delay:0.15s">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Send us a message</h3>
+        <form id="contact-form" class="space-y-4" novalidate>
+
+          <div>
+            <label class="form-label" for="c-name">Your Name *</label>
+            <input class="form-input" id="c-name" name="name" type="text" placeholder="Jane Smith" required />
+          </div>
+          <div>
+            <label class="form-label" for="c-email">Email Address *</label>
+            <input class="form-input" id="c-email" name="email" type="email" placeholder="jane@email.com" required />
+          </div>
+          <div>
+            <label class="form-label" for="c-subject">Subject</label>
+            <input class="form-input" id="c-subject" name="subject" type="text" placeholder="What's this about?" />
+          </div>
+          <div>
+            <label class="form-label" for="c-message">Message *</label>
+            <textarea class="form-input" id="c-message" name="message" rows="4" placeholder="Ask us anything..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary w-full justify-center py-3">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+
+          <div id="contact-success" class="success-msg hidden"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <footer class="py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-10">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 bg-gradient-to-br from-leaf-400 to-leaf-600 rounded-lg flex items-center justify-center">
+              <i class="fas fa-leaf text-white text-xs"></i>
+            </div>
+            <span class="font-display font-bold text-lg text-white">Leaf It To Us</span>
+          </div>
+          <p class="text-green-300 text-sm leading-relaxed">Your friendly neighbourhood lawn care team — showing up reliably, caring deeply.</p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <div class="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Quick Links</div>
+          <ul class="space-y-2 text-sm text-green-300">
+            <li><a href="#services" class="hover:text-green-400 transition-colors">Services</a></li>
+            <li><a href="#about" class="hover:text-green-400 transition-colors">About Us</a></li>
+            <li><a href="#pricing" class="hover:text-green-400 transition-colors">Pricing</a></li>
+            <li><a href="#quote" class="hover:text-green-400 transition-colors">Get a Quote</a></li>
+            <li><a href="#contact" class="hover:text-green-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Contact</div>
+          <ul class="space-y-2 text-sm text-green-300">
+            <li><i class="fas fa-phone mr-2 opacity-60"></i>(555) 867-5309</li>
+            <li><i class="fas fa-envelope mr-2 opacity-60"></i>hello@leafittous.com</li>
+            <li><i class="fas fa-clock mr-2 opacity-60"></i>Mon–Fri 7am–6pm</li>
+          </ul>
+          <div class="flex gap-3 mt-4">
+            <a href="#" class="w-8 h-8 bg-green-800 hover:bg-leaf-500 rounded-lg flex items-center justify-center transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f text-xs text-white"></i></a>
+            <a href="#" class="w-8 h-8 bg-green-800 hover:bg-leaf-500 rounded-lg flex items-center justify-center transition-colors" aria-label="Instagram"><i class="fab fa-instagram text-xs text-white"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-green-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-green-500">
+        <span>© 2025 Leaf It To Us. All rights reserved.</span>
+        <span>Built with 💚 for happy lawns.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up text-sm"></i>
+  </button>
+
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>
